@@ -1,4 +1,1 @@
-csi_data.parquet
-front.parquet
-.gitignore
-shortlist.parquet
+*.parquet

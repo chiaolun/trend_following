@@ -1,0 +1,17 @@
+[project]
+name = "trend"
+version = "0.1.0"
+requires-python = ">=3.12"
+dependencies = [
+    "matplotlib",
+    "numba",
+    "numpy",
+    "pandas",
+    "scipy",
+    "seaborn",
+    "tqdm",
+    "ipykernel",
+    "pyarrow",
+    "jinja2>=3.1.6",
+    "lxml>=6.0.2",
+]

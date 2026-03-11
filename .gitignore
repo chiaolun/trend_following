@@ -1,2 +1,2 @@
 *.parquet
-csi_data.duckdb
+*.duckdb

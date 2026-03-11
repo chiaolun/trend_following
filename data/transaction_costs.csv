@@ -1,0 +1,13 @@
+asset_class,start_year,end_year,transaction_cost
+Equities,1880,1992,34.0
+Equities,1993,2002,11.0
+Equities,2003,2013,6.0
+Bonds,1880,1992,6.0
+Bonds,1993,2002,2.0
+Bonds,2003,2013,1.0
+Commodities,1880,1992,58.0
+Commodities,1993,2002,19.0
+Commodities,2003,2013,10.0
+Currencies,1880,1992,18.0
+Currencies,1993,2002,6.0
+Currencies,2003,2013,3.0

@@ -42,6 +42,6 @@ uv run jupyter lab
 This ensures that the notebook kernels correctly inherit all dependencies (pandas, numpy, scipy, etc.) isolated to this project.
 
 ### 5. Data Requirements
-For the notebooks to execute successfully, you must place the correct futures data file (`csi_data.parquet`) into the root directory of this repository.
+For the notebooks to execute successfully, you must place the correct futures data file (`csi_data.duckdb`) into the `data/` directory of this repository.
 
-> **Note:** Because this data is proprietary, it is *not* checked into Git. If you do not have `csi_data.parquet` locally, please ask someone who works on this project for a copy. If you do not know who has it, please use your deductive reasoning skills to track it down!
+> **Note:** Because this data is proprietary, it is *not* checked into Git. If you do not have `csi_data.duckdb` locally, please ask someone who works on this project for a copy. If you do not know who has it, please use your deductive reasoning skills to track it down!

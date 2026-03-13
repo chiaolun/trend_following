@@ -1,2 +1,4 @@
 *.parquet
 *.duckdb
+.ipynb_checkpoints
+__pycache__

@@ -21,5 +21,7 @@ dependencies = [
 [dependency-groups]
 dev = [
     "jupyterlab",
+    "jupytext>=1.19.1",
     "nbdime>=4.0.4",
+    "ruff>=0.15.6",
 ]

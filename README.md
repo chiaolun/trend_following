@@ -45,3 +45,13 @@ This ensures that the notebook kernels correctly inherit all dependencies (panda
 For the notebooks to execute successfully, you must place the correct futures data file (`csi_data.duckdb`) into the `data/` directory of this repository.
 
 > **Note:** Because this data is proprietary, it is *not* checked into Git. If you do not have `csi_data.duckdb` locally, please ask someone who works on this project for a copy. If you do not know who has it, please use your deductive reasoning skills to track it down!
+
+### 6. Working with Notebooks (Jupytext)
+This repository uses `jupytext` to pair Jupyter Notebooks (`.ipynb`) with plain Python scripts (`.py`). This makes version control much cleaner and allows you to edit the analysis logic in your favorite IDE.
+
+Whenever you make changes to a Python script (e.g. `analysis.py` or `acf.py`), you must sync those changes back to the notebook before running the notebook server or committing:
+```bash
+uv run jupytext --sync <notebook>.ipynb
+```
+
+Conversely, if you make changes in the Jupyter Notebook interface, the sync command will update the paired `.py` script to match.

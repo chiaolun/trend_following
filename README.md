@@ -42,6 +42,31 @@ uv run jupyter lab
 This ensures that the notebook kernels correctly inherit all dependencies (pandas, numpy, scipy, etc.) isolated to this project.
 
 ### 5. Data Requirements
-For the notebooks to execute successfully, you must place the correct futures data file (`csi_data.parquet`) into the root directory of this repository.
+For the notebooks to execute successfully, you must place the correct futures data file (`csi_data.duckdb`) into the `data/` directory of this repository.
 
-> **Note:** Because this data is proprietary, it is *not* checked into Git. If you do not have `csi_data.parquet` locally, please ask someone who works on this project for a copy. If you do not know who has it, please use your deductive reasoning skills to track it down!
+> **Note:** Because this data is proprietary, it is *not* checked into Git. If you do not have `csi_data.duckdb` locally, please ask someone who works on this project for a copy. If you do not know who has it, please use your deductive reasoning skills to track it down!
+
+Alternatively, if you have access to the raw CSV and `Specs.txt` files from CSI, you can generate the database yourself. Place the raw files into the `data/` directory and run:
+```bash
+duckdb data/csi_data.duckdb < data/load_data.sql
+```
+
+### 6. Working with Notebooks (Jupytext)
+This repository uses `jupytext` to pair Jupyter Notebooks (`.ipynb`) with plain Python scripts (`.py`). This makes version control much cleaner and allows you to edit the analysis logic in your favorite IDE.
+
+Whenever you make changes to a Python script (e.g. `analysis.py` or `acf.py`), you must sync those changes back to the notebook before running the notebook server or committing:
+```bash
+uv run jupytext --sync <notebook>.ipynb
+```
+
+Conversely, if you make changes in the Jupyter Notebook interface, the sync command will update the paired `.py` script to match.
+
+### 7. Parameter Sweeps
+To explore different signal types and parameter combinations across futures categories, use the parameter sweep script:
+```bash
+uv run sweep.py
+```
+This script evaluates signals (like breakout, EMA cross, momentum) across varying windows and smoothings, outputting results into the `sweep_results/` directory. You can visualize and analyze these outcomes using the `sweep_viz.ipynb` notebook.
+
+### 8. Dev Container
+This repository includes a `.devcontainer` configuration. This allows you to run the project in an isolated, pre-configured sandbox environment (e.g., using VS Code Remote - Containers) with all dependencies and tools like `uv` properly initialized.

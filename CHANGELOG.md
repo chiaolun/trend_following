@@ -1,3 +1,5 @@
 # Change Log
 
+- **2026-03-16** — Added parameter sweep scripts (`sweep.py`, `sweep_viz.ipynb`) for exploring signal combinations. Added `load_data.sql` to regenerate `csi_data.duckdb` from raw CSI files. Included `.devcontainer` configuration for an isolated development environment.
+- **2026-03-13** — Performed general repository cleanup: Notebooks were refactored for clarity and readability, and repository structure was improved by moving analysis outputs (PDFs) and temporary files to dedicated subfolders (`reports/`, etc.). 
 - **2026-03-11 11:15 UTC** — Switched data source from parquet/CSV to DuckDB (`csi_data.duckdb`). Replaced `contracts.csv` metadata with `spec` table, replaced `csi_data.parquet` with `dailies` table. Prices are now in market format (no `mult` adjustment needed). Multiplier derived from `contract_size`/`units`. Symbol mapping handles spec "2" suffixes (e.g. BO2 → BO). Filtered `_Spot.csv` duplicates. Removed contract blacklist and complex filtering (DuckDB is pre-curated to 39 contracts).

@@ -2,3 +2,5 @@
 *.duckdb
 .ipynb_checkpoints
 __pycache__
+sweep_results/
+sweep.log

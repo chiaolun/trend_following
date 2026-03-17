@@ -57,6 +57,14 @@ Full grid (Sharpe / Max DD):
 
 Every cell in the grid improves on equal-weight (1.12 / -0.19) on both dimensions. Lower λ and shorter halflife yield higher Sharpe and lower DD simultaneously — the covariance information is genuinely useful, not just fitting noise.
 
+## Reproducing the best variant
+
+```
+uv run python sweep_mvo.py \
+  --signal-type momentum --vol-window 60 --smoothing 1 --window 247 \
+  --halflife 63 --reg 0.30 --warmup-years 5
+```
+
 ## Plots
 
 - [Cumulative returns, drawdowns, rolling Sharpe](gepa_mvo_vs_equal.png)

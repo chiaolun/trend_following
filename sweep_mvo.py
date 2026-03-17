@@ -87,31 +87,32 @@ def compute_mvo_weights(nr_filled, sig_wide, halflife, reg, warmup=WARMUP_DAYS):
         ret_i = nr_filled[i]
         sig_i = sig_wide[i]
 
-        # Update exponentially-weighted mean and covariance
+        # Compute weights BEFORE updating covariance with today's return,
+        # so the cov matrix only uses returns through day i-1.
+        if i < warmup:
+            weights[i] = sig_i
+        else:
+            # Regularize: shrink toward diagonal
+            diag_cov = np.diag(np.diag(ewm_cov))
+            cov_reg = (1 - reg) * ewm_cov + reg * diag_cov
+
+            # Solve w = Σ^{-1} μ
+            try:
+                w = np.linalg.solve(cov_reg, sig_i)
+            except np.linalg.LinAlgError:
+                w = sig_i
+
+            # Normalize to match equal-weight gross exposure
+            gross = np.abs(w).sum()
+            if gross > 0:
+                w = w / gross * np.abs(sig_i).sum()
+
+            weights[i] = w
+
+        # Update covariance AFTER computing weights (lagged: uses returns through day i)
         diff = ret_i - ewm_mean
         ewm_mean = ewm_mean * (1 - ewm_alpha) + ret_i * ewm_alpha
         ewm_cov = (1 - ewm_alpha) * (ewm_cov + ewm_alpha * np.outer(diff, diff))
-
-        if i < warmup:
-            weights[i] = sig_i
-            continue
-
-        # Regularize: shrink toward diagonal
-        diag_cov = np.diag(np.diag(ewm_cov))
-        cov_reg = (1 - reg) * ewm_cov + reg * diag_cov
-
-        # Solve w = Σ^{-1} μ
-        try:
-            w = np.linalg.solve(cov_reg, sig_i)
-        except np.linalg.LinAlgError:
-            w = sig_i
-
-        # Normalize to match equal-weight gross exposure
-        gross = np.abs(w).sum()
-        if gross > 0:
-            w = w / gross * np.abs(sig_i).sum()
-
-        weights[i] = w
 
     return weights
 
